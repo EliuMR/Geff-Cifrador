@@ -1,0 +1,54 @@
+% This is samplepaper.tex, a sample chapter demonstrating the
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+
+\documentclass[runningheads]{llncs}
+%
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage[spanish]{babel}
+\usepackage[noend]{algpseudocode}
+
+
+\begin{document}
+%
+\title{LFSRs y cifradores de flujo}
+%
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+\author{Moreno Ramírez, Eliú\inst{1}}
+%
+\authorrunning{Eliú Moreno}
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Instituto Nacional de Astrofísica Óptica y Electrónica, Puebla; México
+\email{eliu.moreno@inaoep.mx}\\}
+%
+\maketitle              % typeset the header of the contribution
+El primer polinomio asociado es $f(x)=x^{32}+x^7+x^6+x^2+1$ el cual tiene grado 32 que a su vez es la longitud del registro, la secuencia tab o función de retroalimentación es $S_1(t)=S_{32} \bigoplus S_{7} \bigoplus  S_{6} \bigoplus  S_{2}$, y en este caso el periodo máximo del polinomio  $2^n-1=4294967296-1=4294967295$.
+
+El segundo polinomio asociado es $f(x)=x^{57}+x^7+1$ el cual tiene grado 57 que a su vez es la longitud del registro, la secuencia tab o función de retroalimentación es $S_1(t)=S_{57} \bigoplus S_{7}$, y en este caso el periodo máximo del polinomio  $2^n-1=1.4411519e+17-1$.
+
+Y el tercer polinomio asociado es $f(x)=x^{130}+x^3+1$ el cual tiene grado 130 que a su vez es la longitud del registro, la secuencia tab o función de retroalimentación es $S_1(t)=S_{130} \bigoplus S_{3}$, y en este caso el periodo máximo del polinomio  $2^n-1=1.3611295e+39-1$. 
+
+Con estos polinomios que son (32,7,6,2,0), (57,7,0), (130,3,0) que son los tres registros usados para alimentar el generador de Geffe, para implementar este se utilizó python, y para generar las semillas de cada generador se uso una función random. En este caso $n_1=57, n_2=32, n_3=130$ por lo que la complejidad es $(n_1+1)n_2+n_1n_3=(57+1)*32+57*130=9266$. Una vez implementado Geffe se agregó que para encriptar el texto, primeramente se mete dicho texto en una función que convierte este en binario para realizar el xor entre la llave y este texto. Para descifrar el mensaje pasa por una función primeramente pasa por un convertidor del texto cifrado para tenerlo en forma de cadena binaria, realizar un xor entre esta y la llave utilizada para cifrar. 
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+% \bibliographystyle{splncs04}
+% \bibliography{mybibliography}
+%
+\begin{thebibliography}{8}
+\bibitem{ref_article0}
+Fernández-Conde, J.; Cuenca-Jiménez, P.; Cañas, J.M. Hybrid Training Strategies: Improving Performance of Temporal Difference Learning in Board Games. Appl. Sci. 2022, 12, 2854. https://doi.org/10.3390/app12062854
+\bibitem{ref_article1}
+Poliansky, R.; Sipper, M.; Elyasaf, A. From Requirements to Source Code: Evolution of Behavioral Programs. Appl. Sci. 2022, 12, 1587. https://doi.org/10.3390/app12031587
+
+\end{thebibliography}
+\end{document}
