@@ -1,5 +1,7 @@
 import numpy as np
-#Xor
+import ast
+import shlex
+#Funcion Xor
 def xor(a, b):
     if a==b:
         return 0
@@ -125,6 +127,8 @@ def flujo2(semilla,tamano):
         print('El tamaño de la semilla no corresponde al grado del polinomio asociado al LFSR',len(semilla))
 #cifrador de flujo usando el generador de Geffe
 def Geffe(tamano):
+    #Parametro tamano expecifica el tamaño del texto a codificar y de una llave de la misma longitud
+
     salida=''
     semilla=Semilla(57)
     a1=flujo(semilla,tamano)
@@ -190,24 +194,39 @@ def Desencriptar(llave,textoEncriptado):
     return textoDesifrado
 #Menu
 def Menu():
-    print('---------------------------------------')
+    print('Autor: Eliú Moreno Ramírez')
+    print('Fecha: Marzo 2023')
+    print('---------------------------------------------------------')
+    print('Bienvenido al cifrador de flujo con un generador de Geffe')
     print('Eliga lo deseado: ')
     print('1-Cifrar Texto')
-    print('2-Descifrar texto')    
-    print('---------------------------------------')
-    eleccion=int(input())
-    if eleccion==1:
-        print('Escriba el texto a cifrar')
-        texto=input()
-        textoEncriptado=Encriptar(texto)
-        print(textoEncriptado)
-    elif eleccion==2:
-        print('Escriba la llave')
-        llave=input()
-        print('Escriba el teto cifrado')
-        textoEncriptado=input()
-        texto=Desencriptar(llave, textoEncriptado)
-        print(texto)
-    else:
-        print('Escriba una elección válido (1,2)')
+    print('2-Descifrar texto')
+    print('3-Salir') 
+    eleccion=input()
+    print('---------------------------------------------------------')
+    while eleccion!='3':
+        if eleccion=='1':
+            print('Escriba el texto a cifrar')
+            texto=input()
+            textoEncriptado=Encriptar(texto)
+            print('El texto encriptado y la llave es el siguiente (\'Llave\',\'Texto Cifrado\'):')
+            print(textoEncriptado)
+        elif eleccion=='2':
+            print('Escriba la llave')
+            llave=input()
+            print('Escriba el texto cifrado')
+            textoEncriptado=input()
+            #ast.literal_eval(shlex.quote('Texto')) - mantiene escape sequences al momento de introducirlos por consola 
+            #textoDecifrado=Desencriptar(ast.literal_eval(shlex.quote(llave)), ast.literal_eval(shlex.quote(textoEncriptado)))
+            #textoDecifrado=Desencriptar(llave,textoEncriptado)
+            print(Desencriptar(llave,textoEncriptado))
+        else:
+            print('Escriba una elección válido (1,2)')
+        print('---------------------------------------------------------')
+        print('Eliga lo deseado: ')
+        print('1-Cifrar Texto')
+        print('2-Descifrar texto')
+        print('3-Salir') 
+        eleccion=input()
+        print('---------------------------------------------------------')
 Menu()
