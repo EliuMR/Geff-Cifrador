@@ -206,20 +206,39 @@ def Menu():
     print('---------------------------------------------------------')
     while eleccion!='3':
         if eleccion=='1':
+            #Guardaremos el texto y llave en un arcivo .tex
             print('Escriba el texto a cifrar')
             texto=input()
             textoEncriptado=Encriptar(texto)
-            print('El texto encriptado y la llave es el siguiente (\'Llave\',\'Texto Cifrado\'):')
-            print(textoEncriptado)
+            #Guardamos llave
+            with open('llave.txt', 'w', encoding='utf-8') as f:
+                f.write(textoEncriptado[0])
+            f.close()
+            #Guardamos Texto encriptado
+            with open('textoEncriptado.txt', 'w', encoding='utf-8') as f:
+                f.write(textoEncriptado[1])
+            f.close()
+            print('***************************************************')
+            print('El texto ha sido sifrado y se guardó en el archivo \'textoEncriptado.tex\' y la llave en el archivo \'llave.tex\'')
+            print('***************************************************')
         elif eleccion=='2':
-            print('Escriba la llave')
-            llave=input()
-            print('Escriba el texto cifrado')
-            textoEncriptado=input()
-            #ast.literal_eval(shlex.quote('Texto')) - mantiene escape sequences al momento de introducirlos por consola 
-            #textoDecifrado=Desencriptar(ast.literal_eval(shlex.quote(llave)), ast.literal_eval(shlex.quote(textoEncriptado)))
-            #textoDecifrado=Desencriptar(llave,textoEncriptado)
-            print(Desencriptar(llave,textoEncriptado))
+            #Para decifrar necesitamos la llave y texto cifrado
+            print('Para decifrar es necesario una llave y el texto cifrado. \n Asegurarse que donde se encuentre ejecutando el código esté la clave en un archivo con el título \'llave.tex\' y el texto cifrado con el nombre \'textoEncriptado.tex\'')
+            print('Desea continuar [s/n]')
+            respuesta=input()
+            if respuesta=='s' or respuesta=='S':
+                archivo = open("llave.txt",encoding='utf-8')
+                llave=archivo.read()
+                archivo.close()
+                archivo = open("textoEncriptado.txt",encoding='utf-8')
+                textoEncriptado=archivo.read()
+                archivo.close()
+                print('***************************************************')
+                print('El texto decifrado es :')
+                print(Desencriptar(llave,textoEncriptado))
+                print('***************************************************')
+            else:
+                break
         else:
             print('Escriba una elección válido (1,2)')
         print('---------------------------------------------------------')
